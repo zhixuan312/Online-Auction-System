@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/defaultTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+    
+    <ui:define name="header">
+        <h1>View Customer Profile</h1>
+    </ui:define>
+    
+    <ui:define name="footer">
+        
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <h:form id="formViewProfile">
+            <p:messages id="messages" redisplay="false" />
+            
+            <p:panelGrid>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Current: " />
+                    </p:column>
+                    <p:column> 
+                    </p:column>
+                    <p:column> 
+                        <p:outputLabel value="Update: " />
+                    </p:column>
+                    <p:column>  
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="firstName" value="First Name: " />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{viewAndUpdateCustomerProfileManagedBean.customer.firstName}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel for="firstName" value="New First Name: " />
+                    </p:column>
+                    <p:column> 
+                        <p:inputText id="firstName" value="#{viewAndUpdateCustomerProfileManagedBean.customer.firstName}" maxlength="32" required="true" requiredMessage="First Name is required" />
+                    </p:column>
+                    <p:message for="firstName" />
+                </p:row>
+                
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="lastName" value="Last Name: " />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{viewAndUpdateCustomerProfileManagedBean.customer.lastName}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel for="lastName" value="New Last Name: " />
+                    </p:column>
+                    <p:column> 
+                        <p:inputText id="lastName" value="#{viewAndUpdateCustomerProfileManagedBean.customer.lastName}" maxlength="32" required="true" requiredMessage="Last Name is required" />
+                    </p:column>
+                    <p:message for="lastName" />
+                </p:row>
+                
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="email" value="Email: " />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{viewAndUpdateCustomerProfileManagedBean.customer.email}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel for="email" value="New Email: " />
+                    </p:column>
+                    <p:column> 
+                        <p:inputText id="email" value="#{viewAndUpdateCustomerProfileManagedBean.customer.email}" maxlength="32" required="true" requiredMessage="Email is required" />                    
+                    </p:column>
+                    <p:message for="email" />
+                </p:row>
+                
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="CreditBalance: " />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{viewAndUpdateCustomerProfileManagedBean.customer.currentCreditBalance}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel for="password" value="New Password: " />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="password" value="#{viewAndUpdateCustomerProfileManagedBean.customer.password}" maxlength="32" required="true" requiredMessage="Passowrd is required" />                    
+                    </p:column>
+                    <p:message for="password" />
+                </p:row>
+                
+                
+                <p:row>
+                    <p:column colspan="4">
+                        <div align="right">
+                            <p:commandButton value="Update" update="messages"  actionListener="#{viewAndUpdateCustomerProfileManagedBean.updateCustomer}" />
+                            <p:commandButton value="Cancel" immediate="true" actionListener="#{viewAndUpdateCustomerProfileManagedBean.cancelUpdate}"  />
+                        </div>
+                    </p:column>
+                    
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+    
+</ui:composition>

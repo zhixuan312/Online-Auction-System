@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/defaultTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+                    
+    <ui:define name="header">
+        <h1>Credit Package</h1>
+    </ui:define>
+    
+    <ui:define name="footer">
+        
+    </ui:define>
+    
+    <ui:define name="content">
+
+        <h1>Purchase Credit Package</h1>  
+        
+            <h:form id="formCreditPackages">
+                
+            <p:messages id="messages" redisplay="false" closable="true" />
+            
+            <br />
+            
+            <p:dataTable id="dataTableCreditPackages" widgetVar="dataTableCreditPackages" value="#{purchaseCreditPackageManagedBean.creditPackages}" var="creditPackage" rowKey="#{creditPackage.getcreditPackageId}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15,20">
+                    
+                <p:column headerText="CreditPackage Id" sortBy="#{creditPackage.creditPackageId}" >
+                    <h:outputText value="#{creditPackage.creditPackageId}" />
+                </p:column>
+                
+                <p:column headerText="Name"  sortBy="#{creditPackage.name}" >
+                    <h:outputText value="#{creditPackage.name}" />
+                </p:column>
+                
+                <p:column headerText="Credit Value" sortBy="#{creditPackage.creditValue}" >
+                    <h:outputText value="#{creditPackage.creditValue}" />
+                </p:column>
+                
+                <p:column headerText="Price"  sortBy="#{creditPackage.price}" >
+                    <h:outputText value="#{creditPackage.price}" />
+                </p:column>
+                
+                <f:facet name="footer">
+                    In total there are #{purchaseCreditPackageManagedBean.creditPackages.size()} Credit Packages.
+                </f:facet>
+                
+            </p:dataTable>
+            <div align="right">
+                <p:commandButton value="Purchase Credit" icon="ui-icon-plusthick" actionListener="#{purchaseCreditPackageManagedBean.createNewTransaction}" update="formCreateNewTransaction" oncomplete="PF('dialogCreateNewTransaction').show();" />
+            </div>
+        </h:form>
+                
+            <h:form id="formCreateNewTransaction">
+                
+            <p:dialog id="dialogCreateNewTransaction" widgetVar="dialogCreateNewTransaction" header="Purchase Credit Package" closable="true">
+                
+                <p:messages id="messagesCreateNewTransaction" redisplay="false" />
+                    
+                <p:panelGrid>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="creditPackageId" value="Credit Package ID: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="creditPackageId" value="#{purchaseCreditPackageManagedBean.creditPackageId}" maxlength="255" required="true" requiredMessage="Credit Package ID is required" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="creditPackageId" />
+                        </p:column>
+                    </p:row>
+                        
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="quantity" value="Quantity: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="quantity" value="#{purchaseCreditPackageManagedBean.quantity}" maxlength="255" required="true" requiredMessage="Quantity is required" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="quantity" />
+                        </p:column>
+                    </p:row>
+                        
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton id="createNewTransaction" value="Purchase" icon="fa-save" actionListener="#{purchaseCreditPackageManagedBean.purchaseCreditPackage()}" update="messagesCreateNewTransaction" />
+                        </p:column>
+                    </p:row>
+                        
+                </p:panelGrid>
+                    
+            </p:dialog>
+                
+        </h:form>
+    </ui:define>
+    
+</ui:composition>

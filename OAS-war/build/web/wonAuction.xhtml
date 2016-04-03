@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/defaultTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+    
+    <ui:define name="header">
+        <h1>Won Auction Listing</h1>
+    </ui:define>
+    
+    <ui:define name="footer">
+        
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <h1>Won Auction Listing</h1>  
+        
+        <h:form id="formWonAuctionListings">
+            
+            <p:messages id="messages" redisplay="false" closable="true" />
+            
+            <br />
+            
+            <p:dataTable id="dataTableWonAuctionListings" widgetVar="dataTableWonAuctionListings" value="#{wonAuctionManagedBean.wonAuctions}" var="auctionListing" rowKey="#{auctionListing.auctionListingId}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15,20">
+                             
+                <p:column headerText="Auction Listing Id" filterBy="#{auctionListing.auctionListingId}">
+                    <h:outputText value="#{auctionListing.auctionListingId}" />
+                </p:column>
+                
+                <p:column headerText="Title" filterBy="#{auctionListing.title}">
+                    <h:outputText value="#{auctionListing.title}" />
+                </p:column>
+                
+                <p:column headerText="Description" filterBy="#{auctionListing.description}">
+                    <h:outputText value="#{auctionListing.description}" />
+                </p:column>
+                
+                <p:column headerText="Starting Bid" filterBy="#{auctionListing.startingBid}">
+                    <h:outputText value="#{auctionListing.startingBid}" />
+                </p:column>
+                
+                <p:column headerText="Start Date" filterBy="#{auctionListing.startDate}">
+                    <h:outputText value="#{auctionListing.startDate}" />
+                </p:column>
+                
+                <p:column headerText="End Date" filterBy="#{auctionListing.endDate}">
+                    <h:outputText value="#{auctionListing.endDate}" />
+                </p:column>
+                
+                <f:facet name="footer">
+                    In total there are #{wonAuctionManagedBean.wonAuctions.size()} won auction listings.
+                </f:facet>
+                
+            </p:dataTable>
+            <div align="right">
+                <p:commandButton value="Select Address for Won Auction Listing" icon="ui-icon-plusthick" actionListener="#{wonAuctionManagedBean.selectDeliveryAddressForWonAuctionListing()}" update="formSelectAddress" oncomplete="PF('dialogSelectAddress').show();" />
+            </div>
+        </h:form>
+            
+        <h:form id="formSelectAddress">
+            
+            <p:dialog id="dialogSelectAddress" widgetVar="dialogSelectAddress" header="Select Address" closable="true">
+                
+                <p:messages id="messagesSelectAddress" redisplay="false" />
+                
+                <p:panelGrid>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="auctionListingId" value="Please enter your won auction listing ID: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="auctionListingId" value="#{wonAuctionManagedBean.wonAuctionId}" maxlength="255" required="true" requiredMessage="Auction Listing ID is required" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="auctionListingId" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="addressId" value="Address ID: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="addressId" value="#{wonAuctionManagedBean.addressId}" maxlength="255" required="true" requiredMessage="Address ID is required" />
+                        </p:column>
+                        <p:column>
+                            <p:message for="addressId" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:commandButton id="selectAddress" value="Set" icon="fa-save" actionListener="#{wonAuctionManagedBean.selectDeliveryAddressForWonAuctionListing()}" update="messagesSelectAddress" />
+                        </p:column>
+                    </p:row>
+                    
+                </p:panelGrid>
+                
+            </p:dialog>
+            
+        </h:form>  
+    </ui:define>
+    
+</ui:composition>
